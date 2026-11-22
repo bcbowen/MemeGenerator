@@ -1,3 +1,4 @@
+import csv
 from IngestorInterface import IngestorInterface
 from QuoteModel import QuoteModel
 
@@ -11,8 +12,12 @@ class CsvIngestor(IngestorInterface):
     def parse(cls, path: str) -> list[QuoteModel]:
         quotes = [] 
 
-        #with open(path, 'r') as file: 
-        #    for line in file.readlines():
-        #        quote, name = line.split('-') 
-        #        quotes.append(QuoteModel(quote.strip(), name.strip()))
+
+        with open(path, "r") as csv_file:
+            reader = csv.DictReader(csv_file)
+            for row in reader:
+                author = row['author']
+                body = row['body']
+                quotes.append(QuoteModel(body, author))
+                
         return quotes
