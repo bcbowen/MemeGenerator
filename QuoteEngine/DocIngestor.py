@@ -3,9 +3,11 @@ from QuoteModel import QuoteModel
 
 class DocIngestor(IngestorInterface): 
 
+    @classmethod
     def can_ingest(cls, path: str) -> bool:
         return cls is DocIngestor
 
+    @classmethod
     def parse(cls, path: str) -> list[QuoteModel]:
         quotes = [] 
 

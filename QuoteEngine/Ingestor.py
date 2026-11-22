@@ -13,10 +13,16 @@ class Ingestor(IngestorInterface):
 
     @classmethod
     def parse(cls, path: str) -> list[QuoteModel]:
-        if not Ingestor.can_ingest(cls, path): 
+        if not Ingestor.can_ingest(path): 
             raise Exception("Uningestible class!")
-        #if cls is TextIngestor: 
+
         match str(cls): 
             case 'TextIngestor': 
-                return TextIngestor.parse(cls, path)
-            
+                return TextIngestor.parse(path)
+            case 'PdfIngestor': 
+                            return PdfIngestor.parse(path)
+            case 'DocIngestor': 
+                            return DocIngestor.parse(path)
+            case 'CsvIngestor': 
+                            return CsvIngestor.parse(path)
+        raise Exception("Unrecognized cls: " + str(cls))
